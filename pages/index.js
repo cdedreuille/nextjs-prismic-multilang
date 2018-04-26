@@ -22,7 +22,8 @@ export default class Index extends React.Component {
   render() {
     return (
       <div>
-        <h1>{this.props.homepage[0].data.home_page_header[0].text}</h1>
+        <p>This info is pulled form Prismic via api</p>
+        <p>{this.props.homepage[0].data.home_page_header[0].text}</p>
       </div>
     ); 
   }
