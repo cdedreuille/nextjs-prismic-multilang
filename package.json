@@ -7,7 +7,12 @@
   },
   "dependencies": {
     "next": "^5.1.0",
+    "prismic-javascript": "^1.5.0-beta.3",
+    "prismic-reactjs": "^0.3.1",
     "react": "^16.3.2",
-    "react-dom": "^16.3.2"
+    "react-dom": "^16.3.2",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.2.0"
   }
 }
