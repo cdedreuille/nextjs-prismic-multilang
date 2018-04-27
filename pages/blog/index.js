@@ -18,8 +18,20 @@ export default class Index extends React.Component {
   }
 
   render() {
+    let slugs = this.props.blog[0].slugs;
+
     return (
       <div>
+        <p>Map of blog articles</p>
+        <ul>
+        {slugs.map(slug =>
+        <li key={slug.id}>
+          <Link route='blog/first-article'>
+            {slug}
+          </Link>
+        </li>
+        )}
+      </ul>
         <Link route='/'>
           <p>Link to home</p>
         </Link>
