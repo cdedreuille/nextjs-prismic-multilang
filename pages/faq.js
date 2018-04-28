@@ -23,12 +23,7 @@ export default class FAQ extends React.Component {
   render() {
     return (
       <div>
-        <Link route='blog' params={{slug: 'first-article'}}>
-          <p>Link to blog</p>
-        </Link>
-        <Link route='/'>
-          <p>Link to Home</p>
-        </Link>
+        FAQ
       </div>
     ); 
   }

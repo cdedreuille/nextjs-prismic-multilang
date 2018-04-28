@@ -1,6 +1,5 @@
-const routes = module.exports = require('next-routes')()
+const routes = module.exports = require('next-routes-with-locale')({ locale: 'en_gb' })
 
 routes
-  .add('faq', '/faq')
-  .add('blog', '/:language/blog')
-  .add('blog/:slug', '/:language/blog/:slug')
+  .add('faq', 'en_gb', '/faq')
+  .add('blog', 'en_gb', '/blog')
