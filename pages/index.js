@@ -16,7 +16,7 @@ export default class Index extends React.Component {
       })
       .catch(err => console.log(err));
 
-    return { homepage: apiData.results };
+    return { homepage: apiData.results, lang: req.locale };
   }
 
   render() {
