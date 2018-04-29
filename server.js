@@ -1,9 +1,27 @@
 const next = require('next')
+const { parse } = require('url')
+const { createServer } = require('http')
+
+const dev = process.env.NODE_ENV !== 'production'
+
 const routes = require('./routes')
-const app = next({ dev: process.env.NODE_ENV !== 'production' })
+const app = next({ dev })
 const handler = routes.getRequestHandler(app)
 
-const express = require('express')
 app.prepare().then(() => {
-  express().use(handler).listen(3000)
-})
+  createServer((req, res) => {
+    const parsedUrl = parse(req.url, true)
+    const { pathname, query } = parsedUrl
+
+    if (pathname === '/a') {
+      app.render(req, res, '/b', query)
+    } else if (pathname === '/c') {
+      app.render(req, res, '/d')      
+    } else {
+      handler(req, res, parsedUrl)
+    }
+  }).listen(3000, err => {
+    if (err) throw err
+    console.log('Ready to go on 3000')
+  })
+  })

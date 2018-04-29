@@ -1,5 +1,4 @@
 import React from 'react'
-import {Link} from '../routes'
 import Head from '../components/head'
 import Nav from '../components/nav'
 import { RichText, Date } from 'prismic-reactjs'
@@ -24,12 +23,6 @@ export default class Index extends React.Component {
       <div>
         <p>This info is pulled form Prismic via api</p>
         <p>{this.props.homepage[0].data.home_page_header[0].text}</p>
-        <Link route='blog' params={{slug: 'first-article'}}>
-          <p>Link to blog</p>
-        </Link>
-        <Link route='faq'>
-          <p>Link to FAQ</p>
-        </Link>
       </div>
     ); 
   }
