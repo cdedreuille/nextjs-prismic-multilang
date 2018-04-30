@@ -13,8 +13,9 @@ app.prepare().then(() => {
     const parsedUrl = parse(req.url, true)
     const { pathname, query } = parsedUrl
 
-    if (pathname === '/a') {
-      app.render(req, res, '/b', query)
+    if (pathname === '/') {
+      console.log('hit index page')
+      handler(req, res, '/fr-fr/faq')      
     } else if (pathname === '/c') {
       app.render(req, res, '/d')      
     } else {
