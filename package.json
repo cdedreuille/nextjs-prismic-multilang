@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "node server.js"
+    "start": "node server.js",
+    "prod": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "express": "^4.16.3",

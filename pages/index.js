@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router } from '../routes'
+import Router  from 'next/router'
 import Head from '../components/head'
 import Nav from '../components/nav'
 import { RichText, Date } from 'prismic-reactjs'
@@ -10,14 +10,25 @@ const apiEndpoint = 'https://charles-test-nextjs.cdn.prismic.io/api/v2';
 
 
 export default class Index extends React.Component {
-  componentDidMount() {
-const href = 'en-gb'
-const as = href
-  
-  }
-  static async getInitialProps({ req, query }) {
-    let lang = req.locale;
-    const apiData = await Prismic.getApi(apiEndpoint)
+  static async getInitialProps(context) {
+    let { pathname } = context;
+
+    if (pathname === '/') {
+    if (context && context.req) {
+      console.log('server side')
+      context.res.writeHead(301, {Location: `/en-gb`})
+      context.res.end()
+    } else {
+      console.log('client side')
+      Router.push(`/en-gb`)
+    }
+    }
+    const { req } = context;
+    const { locale, messages } = req || windows.__NEXT_DATA__.props;
+
+      let lang = req.locale;
+
+      const apiData = await Prismic.getApi(apiEndpoint)
       .then(api => {
         return api.query( Prismic.Predicates.at('document.type', 'homepage'),
           { lang : lang }
@@ -25,13 +36,13 @@ const as = href
       })
       .catch(err => console.log(err));
 
-    return { homepage: apiData.results, lang: req.locale };
+    return { homepage: apiData.results, lang };
   }
 
   render() {
     return (
       <div>
-        <p>This info is pulled form Prismic via api</p>
+        <p>This info is pulled from Prismic via api</p>
         <p>{this.props.homepage[0].data.home_page_header[0].text}</p>
       </div>
     ); 
