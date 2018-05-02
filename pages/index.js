@@ -1,5 +1,5 @@
 import React from 'react'
-import Router  from 'next/router'
+import {Router}  from '../routes'
 import Head from '../components/head'
 import Nav from '../components/nav'
 import { RichText, Date } from 'prismic-reactjs'
@@ -10,29 +10,20 @@ const apiEndpoint = 'https://charles-test-nextjs.cdn.prismic.io/api/v2';
 
 
 export default class Index extends React.Component {
-  static async getInitialProps(context) {
-    const { req } = context;
+  static async getInitialProps({ res, req }) {
+    const pathname = req.url
+    const userLang = req ? req.headers["accept-language"] : navigator.acceptLanguage
 
-    const pathname = req.url;
-    const language = 'en_US';
-    console.log('client side language ' + language)
-
-    if (pathname === '/') {
-      context.res.writeHead(301, {Location: language})
-      context.res.end()
+    if (userLang[0] === 'en_US') {
+      Router.pushRoute('en_US')
+      console.log('router pushing')
     } 
 
+    const language = userLang
 
-    const langNormal = '';
-    if (language === 'en_GB') {
-      const langNormal = 'en-gb';
-    } else if (language === 'en_US') {
-      const langNormal = 'en-us';
-    }  else {
-      const langNormal = 'en-us';
-    }
+    const langNormal = 'en-us'
+    
 
-    console.log('langNormal ' + langNormal)
       const apiData = await Prismic.getApi(apiEndpoint)
       .then(api => {
         return api.query( Prismic.Predicates.at('document.type', 'homepage'),
@@ -41,7 +32,7 @@ export default class Index extends React.Component {
       })
       .catch(err => console.log(err));
 
-    return { homepage: apiData.results, langNormal, language, pathname };
+    return { homepage: apiData.results, langNormal, language, pathname, userLang };
   }
 
   render() {
@@ -52,6 +43,7 @@ export default class Index extends React.Component {
         <p>Normalized language: {this.props.langNormal}</p>
         <p>req.locale: {this.props.language}</p>
         <p>pathname: {this.props.pathname}</p>
+        <p>Accept Headers: {this.props.userLang}</p>
       </div>
     ); 
   }
