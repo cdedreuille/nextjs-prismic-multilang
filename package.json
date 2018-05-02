@@ -8,7 +8,9 @@
   },
   "dependencies": {
     "express": "^4.16.3",
+    "express-request-language": "^1.1.15",
     "http": "^0.0.0",
+    "i18next-express-middleware": "^1.1.1",
     "locale": "^0.1.0",
     "next": "^5.1.0",
     "next-routes": "^1.4.1",
