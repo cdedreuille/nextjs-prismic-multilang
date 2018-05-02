@@ -23,6 +23,7 @@ export default class Index extends React.Component {
     } 
 
 
+    const langNormal = '';
     if (language === 'en_GB') {
       const langNormal = 'en-gb';
     } else if (language === 'en_US') {
