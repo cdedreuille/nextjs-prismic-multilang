@@ -1,4 +1,4 @@
-const routes = module.exports = require('next-routes-with-locale')({ locale: 'en_GB' })
+const routes = module.exports = require('next-routes-with-locale')({ locale: 'en_US' })
 
 routes
   .add('index', 'en_GB', '/')

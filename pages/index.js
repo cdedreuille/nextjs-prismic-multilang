@@ -29,7 +29,7 @@ export default class Index extends React.Component {
     }  else {
       const langNormal = 'en-us';
     }
-      const langNormal = 'en-gb';
+      const langNormal = 'en-us';
 
     console.log('langNormal ' + langNormal)
       const apiData = await Prismic.getApi(apiEndpoint)
