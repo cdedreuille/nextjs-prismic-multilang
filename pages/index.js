@@ -15,6 +15,7 @@ export default class Index extends React.Component {
 
     const pathname = req.url;
     const language = req.locale;
+    console.log('client side language ' + language)
 
     if (pathname === '/') {
       context.res.writeHead(301, {Location: language})
@@ -29,7 +30,6 @@ export default class Index extends React.Component {
     }  else {
       const langNormal = 'en-us';
     }
-      const langNormal = 'en-us';
 
     console.log('langNormal ' + langNormal)
       const apiData = await Prismic.getApi(apiEndpoint)
@@ -50,6 +50,7 @@ export default class Index extends React.Component {
         <p>{this.props.homepage[0].data.home_page_header[0].text}</p>
         <p>Normalized language: {this.props.langNormal}</p>
         <p>req.locale: {this.props.language}</p>
+        <p>pathname: {this.props.pathname}</p>
       </div>
     ); 
   }

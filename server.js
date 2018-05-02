@@ -18,15 +18,9 @@ app.prepare().then(() => {
     const { pathname, query } = parsedUrl
     const lang = locales.best(supported).toString()
 
-    console.log('server lang ' + lang)
-
-    if (pathname === '/') {
-      const indexUrl = parse(req.url + lang, true)
-      handler(req, res, indexUrl)      
-      console.log(indexUrl)
-    } else {
+    console.log('detected locale ' + locales)
+    console.log('best lang ' + lang)
       handler(req, res, parsedUrl)
-    }
   }).listen(3000, err => {
     if (err) throw err
     console.log('Ready to go on 3000')
