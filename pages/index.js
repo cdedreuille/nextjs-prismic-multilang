@@ -14,7 +14,7 @@ export default class Index extends React.Component {
     const { req } = context;
 
     const pathname = req.url;
-    const language = req.locale;
+    const language = 'en_US';
     console.log('client side language ' + language)
 
     if (pathname === '/') {
