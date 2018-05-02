@@ -24,6 +24,12 @@ export default class Index extends React.Component {
       console.log('router pushing GB')
     } 
 
+    if (userLang[0] === 'fr-fr') {
+      Router.pushRoute('fr-fr')
+    const langNormal = 'fr-fr'
+      console.log('router pushing fr-fr')
+    } 
+
     const language = userLang
 
     const langNormal = 'en-us'
