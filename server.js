@@ -8,7 +8,6 @@ const routes = require('./routes')
 const indexHandle = routes.getRequestHandler(app, ({req, res, route, query}) => {
   const newRoute = '/' + req.language + route.page
   app.render(req, res, route.page, query )
-  console.log(newRoute)
 })
 
 const handle = routes.getRequestHandler(app)
@@ -23,7 +22,13 @@ const requestLanguage = require('express-request-language')
           languages: ['en-US', 'en-GB', 'fr']
         }))
 
-        server.get('*', function(req, res)  {
+        server.get('/', function(req, res)  {
+          if (req.language ===  'en-US') {
+            res.redirect('/en-US');
+          } else if(req.language === 'en-GB') {
+            res.redirect('/en-GB');
+          }
+          console.log(req.language);
           indexHandle(req, res)
         })
 
