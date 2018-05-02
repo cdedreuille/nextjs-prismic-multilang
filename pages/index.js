@@ -17,7 +17,7 @@ export default class Index extends React.Component {
     const language = req.locale;
 
     if (pathname === '/') {
-      context.res.writeHead(301, {Location: req.locale})
+      context.res.writeHead(301, {Location: language})
       context.res.end()
     } 
 
