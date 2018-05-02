@@ -5,9 +5,13 @@ const next = require('next')
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const routes = require('./routes')
-const handle = routes.getRequestHandler(app, ({req, res, route, query}) => {
-  app.render(req, res, route.page, query)
+const indexHandle = routes.getRequestHandler(app, ({req, res, route, query}) => {
+  const newRoute = '/' + req.language + route.page
+  app.render(req, res, route.page, query )
+  console.log(newRoute)
 })
+
+const handle = routes.getRequestHandler(app)
 
 const requestLanguage = require('express-request-language')
 
@@ -19,7 +23,9 @@ const requestLanguage = require('express-request-language')
           languages: ['en-US', 'en-GB', 'fr']
         }))
 
-        server.get('*', (req, res) => handle(req, res))
+        server.get('*', function(req, res)  {
+          indexHandle(req, res)
+        })
 
         server.listen(3000, (err) => {
           if (err) throw err
