@@ -9,20 +9,19 @@ const app = next({ dev })
 const handler = routes.getRequestHandler(app)
 
 const locale = require('locale')
-const supported = new locale.Locales(['en-gb', 'en-us', 'fr-fr'])
+const supported = new locale.Locales(['en_GB', 'en_US'])
 
 app.prepare().then(() => {
   createServer((req, res) => {
     const locales = new locale.Locales(req.headers["accept-language"])
     const parsedUrl = parse(req.url, true)
     const { pathname, query } = parsedUrl
-    const lang = locales
-    console.log(locales[0])
-
+    const lang = locales.best(supported).toString()
+    console.log('server lang ' + lang)
     if (pathname === '/') {
-      const indexUrl = parse(req.url + lang[0], true)
+      const indexUrl = parse(req.url + lang, true)
+      console.log(indexUrl)
       handler(req, res, indexUrl)      
-      console.log(pathname)
     } else {
       handler(req, res, parsedUrl)
     }
