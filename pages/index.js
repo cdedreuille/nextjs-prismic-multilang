@@ -11,22 +11,6 @@ const apiEndpoint = 'https://charles-test-nextjs.cdn.prismic.io/api/v2';
 
 export default class Index extends React.Component {
   static async getInitialProps(context) {
-    let { asPath } = context;
-
-      console.log('before if')
-    console.log(context)
-    if (asPath === '/') {
-      console.log('made it here')
-      if (context && context.req) {
-        console.log('but not here')
-        console.log('server side')
-        context.res.writeHead(301, {Location: `/en-us`})
-        context.res.end()
-      } else {
-        console.log('client side')
-        Router.push(`/en-us`)
-      }
-    }
     const { req } = context;
     const { locale, messages } = req || windows.__NEXT_DATA__.props;
 
