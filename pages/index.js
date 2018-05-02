@@ -13,22 +13,6 @@ export default class Index extends React.Component {
   static async getInitialProps({ res, req }) {
     const userLang = req ? req.headers["accept-language"] : navigator.acceptLanguage
 
-    if (userLang[0] === 'en_US') {
-      Router.pushRoute('en_US')
-    const langNormal = 'en-us'
-      console.log('router pushing')
-    } 
-    if (userLang[0] === 'en_GB') {
-      Router.pushRoute('en_GB')
-    const langNormal = 'en-gb'
-      console.log('router pushing GB')
-    } 
-
-    if (userLang[0] === 'fr-fr') {
-      Router.pushRoute('fr-fr')
-    const langNormal = 'fr-fr'
-      console.log('router pushing fr-fr')
-    } 
 
     const language = userLang
 
