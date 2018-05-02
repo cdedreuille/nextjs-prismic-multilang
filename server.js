@@ -32,6 +32,10 @@ const requestLanguage = require('express-request-language')
           indexHandle(req, res)
         })
 
+        server.get('*', function(req, res) {
+          indexHandle(req, res)
+        })
+
         server.listen(3000, (err) => {
           if (err) throw err
           console.log('> Ready on port 3000')
