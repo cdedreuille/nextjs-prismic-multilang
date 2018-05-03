@@ -8,15 +8,22 @@ const apiEndpoint = 'https://charles-test-nextjs.cdn.prismic.io/api/v2';
 export default class FAQ extends React.Component {
   static async getInitialProps({ req, query }) {
     const lang = req.language
+
+		let newLang = 'en-gb'                                                          
+		if (req.language === 'fr') {
+			newLang = 'fr-fr'
+		} else {
+			newLang = 'en-GB'
+		}
     const apiData = await Prismic.getApi(apiEndpoint)
       .then(api => {
         return api.query(Prismic.Predicates.at('document.type', 'faq'),
-          { lang : lang }
+          { lang : newLang }
         );
       })
       .catch(err => console.log(err));
 
-    return { faq: apiData.results, lang  };
+    return { faq: apiData.results, newLang  };
   }
 
   render() {
