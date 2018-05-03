@@ -5,28 +5,15 @@ import Nav from '../components/nav'
 import { RichText, Date } from 'prismic-reactjs'
 import Prismic from 'prismic-javascript'
 
+import getlang from '../components/getlang'
 
 const apiEndpoint = 'https://charles-test-nextjs.cdn.prismic.io/api/v2';
 
 
 export default class Index extends React.Component {
   static async getInitialProps({ res, req }) {
-    const lang = req.language
 
-    let newLang = 'en-gb'
-    switch(req.language) {
-      case 'fr':
-        newLang = 'fr-fr'
-        break;
-      case 'en-GB':
-        newLang = 'en-gb'
-        break;
-      case 'en-US':
-        newLang = 'en-us'
-        break;
-      default:
-        newLang = 'en-gb'
-    }
+    const newLang = getlang();
 
     const apiData = await Prismic.getApi(apiEndpoint)
     .then(api => {
