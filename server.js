@@ -37,11 +37,11 @@ const requestLanguage = require('express-request-language')
 
         server.get('/faq', function(req, res)  {
           if (req.language ===  'en-US') {
-            res.redirect('/en-US/faq' + req.url);
+            res.redirect('/en-US' + req.url);
           } else if(req.language === 'en-GB') {
-            res.redirect('/en-GB/faq');
+            res.redirect('/en-GB');
           } else if(req.language === 'fr-fr' ) {
-            res.redirect('/fr-fr/faq');
+            res.redirect('/fr-fr');
           } 
 
             indexHandle(req, res)
