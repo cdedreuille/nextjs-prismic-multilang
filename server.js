@@ -19,7 +19,7 @@ const requestLanguage = require('express-request-language')
         const server = express()
 
         server.use(requestLanguage({ 
-          languages: ['en-US', 'en-GB', 'fr']
+          languages: ['en-US', 'en-GB', 'fr-fr']
         }))
 
 
