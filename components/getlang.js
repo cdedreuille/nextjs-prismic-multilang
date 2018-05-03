@@ -1,23 +1,25 @@
-export default class Getlang extends React.Component {
-  static async getInitialProps({ req }) {
-    const lang = req.language; 
+import React from 'react'
 
-    const newLang = '';
+function getlang(lang) {
+
+  let newLang = 'en-gb'
   switch(lang) {
     case 'fr':
-      newLang = 'fr-fr'
+       newLang = 'fr-fr'
       break;
     case 'en-GB':
-      newLang = 'en-gb'
+       newLang = 'en-gb'
       break;
     case 'en-US':
-       newLang = 'en-us'
+        newLang = 'en-us'
       break;
     default:
-       newLang = 'en-gb'
+        newLang = 'en-gb'
   }
 
-  return newLang;
-  }
-
+  return newLang
 }
+
+export default getlang;
+
+

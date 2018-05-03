@@ -13,7 +13,7 @@ const apiEndpoint = 'https://charles-test-nextjs.cdn.prismic.io/api/v2';
 export default class Index extends React.Component {
   static async getInitialProps({ res, req }) {
 
-    const newLang = getlang();
+    const newLang = getlang(req.language);
 
     const apiData = await Prismic.getApi(apiEndpoint)
     .then(api => {

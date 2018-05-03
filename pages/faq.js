@@ -1,5 +1,8 @@
 import React from 'react'
 import { RichText, Date } from 'prismic-reactjs'
+
+
+import getlang from '../components/getlang'
 import Prismic from 'prismic-javascript'
 
 
@@ -7,14 +10,9 @@ const apiEndpoint = 'https://charles-test-nextjs.cdn.prismic.io/api/v2';
 
 export default class FAQ extends React.Component {
   static async getInitialProps({ req, query }) {
-    const lang = req.language
 
-		let newLang = 'en-gb'                                                          
-		if (req.language === 'fr') {
-			newLang = 'fr-fr'
-		} else {
-			newLang = 'en-GB'
-		}
+    const newLang = getlang(req.language);
+
     const apiData = await Prismic.getApi(apiEndpoint)
       .then(api => {
         return api.query(Prismic.Predicates.at('document.type', 'faq'),
