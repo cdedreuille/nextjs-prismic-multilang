@@ -7,16 +7,19 @@ const apiEndpoint = 'https://charles-test-nextjs.cdn.prismic.io/api/v2';
 
 export default class FAQ extends React.Component {
   static async getInitialProps({ req, query }) {
-    let lang = req.locale;
+    const userLang = req ? req.headers["accept-language"] : navigator.acceptLanguage
+    if (userLang === "en-US") {
+      const normalLang = "en_US";
+    }
     const apiData = await Prismic.getApi(apiEndpoint)
       .then(api => {
         return api.query(Prismic.Predicates.at('document.type', 'faq'),
-          { lang : lang }
+          { lang : normalLang }
         );
       })
       .catch(err => console.log(err));
 
-    return { faq: apiData.results, lang, urllang: query.slug  };
+    return { faq: apiData.results  };
   }
 
   render() {
@@ -29,9 +32,6 @@ export default class FAQ extends React.Component {
         <h4>
 
         </h4>
-        <p>
-          {this.props.lang}
-        </p>
       </div>
     ); 
   }

@@ -13,16 +13,10 @@ export default class Index extends React.Component {
   static async getInitialProps({ res, req }) {
     const userLang = req ? req.headers["accept-language"] : navigator.acceptLanguage
 
-
-    const language = userLang
-
-    const langNormal = 'en-us'
-    
-
       const apiData = await Prismic.getApi(apiEndpoint)
       .then(api => {
         return api.query( Prismic.Predicates.at('document.type', 'homepage'),
-          { lang: langNormal }
+          { lang: userLang }
         );
       })
       .catch(err => console.log(err));

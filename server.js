@@ -29,9 +29,22 @@ const requestLanguage = require('express-request-language')
           } else if(req.language === 'en-GB') {
             res.redirect('/en-GB');
           } else if(req.language === 'fr-fr' ) {
-          console.log(req.language);
-            indexHandle(req, res)
+            res.redirect('/fr-fr');
           } 
+
+            indexHandle(req, res)
+        })
+
+        server.get('/faq', function(req, res)  {
+          if (req.language ===  'en-US') {
+            res.redirect('/en-US/faq' + req.url);
+          } else if(req.language === 'en-GB') {
+            res.redirect('/en-GB/faq');
+          } else if(req.language === 'fr-fr' ) {
+            res.redirect('/fr-fr/faq');
+          } 
+
+            indexHandle(req, res)
         })
 
         server.get('*', function(req, res) {
