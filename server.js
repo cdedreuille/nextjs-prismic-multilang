@@ -25,7 +25,7 @@ const requestLanguage = require('express-request-language')
 
         server.get('/', function(req, res)  {
           if (req.language ===  'en-US') {
-            res.redirect('/en-US' + req.url);
+            res.redirect('/en-US');
           } else if(req.language === 'en-GB') {
             res.redirect('/en-GB');
           } else if(req.language === 'fr-fr' ) {
@@ -39,9 +39,9 @@ const requestLanguage = require('express-request-language')
           if (req.language ===  'en-US') {
             res.redirect('/en-US' + req.url);
           } else if(req.language === 'en-GB') {
-            res.redirect('/en-GB');
+            res.redirect('/en-GB' + req.url);
           } else if(req.language === 'fr-fr' ) {
-            res.redirect('/fr-fr');
+            res.redirect('/fr-fr' + req.url);
           } 
 
             indexHandle(req, res)

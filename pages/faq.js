@@ -16,7 +16,7 @@ export default class FAQ extends React.Component {
       })
       .catch(err => console.log(err));
 
-    return { faq: apiData.results, userLang  };
+    return { faq: apiData.results, lang  };
   }
 
   render() {
