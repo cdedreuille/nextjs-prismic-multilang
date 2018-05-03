@@ -1,57 +1,49 @@
 const express = require('express')
 const path = require('path')
 const next = require('next')
+const parseAcceptLanguage = require('parse-accept-language');
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const routes = require('./routes')
-const indexHandle = routes.getRequestHandler(app, ({req, res, route, query}) => {
-  const newRoute = '/' + req.language + route.page
-  app.render(req, res, route.page, query )
+
+const Handle = routes.getRequestHandler(app, ({req, res, route, query}) => {
+ const newRoute = '/' + req.language + route.page
+ app.render(req, res, route.page, query )
 })
 
-const handle = routes.getRequestHandler(app)
+app.prepare().then(() => {
+  const server = express()
 
-const requestLanguage = require('express-request-language')
+  server.get('/', function(req, res)  {
+    const pal = parseAcceptLanguage(req);
+    const locale = pal[0].value
+    switch(locale) {
+      case 'fr': res.redirect('/fr-fr'); break;
+      case 'en-GB': res.redirect('/en-gb'); break;
+      case 'en-US': res.redirect('/en-us'); break;
+      default: res.redirect('/en-gb');
+    }
+    Handle(req, res)
+  })
 
-    app.prepare()
-      .then(() => {
-        const server = express()
+  server.get('/faq', function(req, res)  {
+    const locale = parseAcceptLanguage(req)[0].value
+    switch(locale) {
+      case 'fr': res.redirect('/fr-fr/faq'); break;
+      case 'en-GB': res.redirect('/en-gb/faq'); break;
+      case 'en-US': res.redirect('/en-us/faq'); break;
+      default: res.redirect('/en-gb/faq');
+    }
+    Handle(req, res)
+  })
 
-        server.use(requestLanguage({
-          languages: ['en-US', 'en-GB', 'fr']
-        }))
+  server.get('*', function(req, res) {
+    Handle(req, res)
+  })
 
-        server.get('/', function(req, res)  {
-          if (req.language ===  'en-US') {
-            res.redirect('/en-US');
-          } else if(req.language === 'en-GB') {
-            res.redirect('/en-GB');
-          } else if(req.language === 'fr' ) {
-            res.redirect('/fr-fr');
-          }
-
-          indexHandle(req, res)
-        })
-
-        server.get('/faq', function(req, res)  {
-          if (req.language ===  'en-US') {
-            res.redirect('/en-US' + req.url);
-          } else if(req.language === 'en-GB') {
-            res.redirect('/en-GB' + req.url);
-          } else if(req.language === 'fr-fr' ) {
-            res.redirect('/fr-fr' + req.url);
-          }
-
-            indexHandle(req, res)
-        })
-
-        server.get('*', function(req, res) {
-          indexHandle(req, res)
-        })
-
-        server.listen(3000, (err) => {
-          if (err) throw err
-          console.log('> Ready on port 3000')
-        })
-      });
+  server.listen(3000, (err) => {
+    if (err) throw err
+    console.log('> Ready on port 3000')
+  })
+});

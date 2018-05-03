@@ -1,12 +1,9 @@
-const routes = module.exports = require('next-routes-with-locale')({ locale: 'fr-fr' })
+const routes = module.exports = require('next-routes-with-locale')({ locale: 'en-gb' })
 
 routes
-  .add('index', 'en-US', '/')
-  .add('index', 'en-GB', '/')
+  .add('index', 'en-us', '/')
+  .add('index', 'en-gb', '/')
   .add('index', 'fr-fr', '/')
-  .add('en-US', 'en-US', '/en-US')
-  .add('en-GB', 'en-GB', '/en-GB')
-  .add('fr', 'fr', '/fr')
-  .add('faq', 'en-GB', '/faq')
-  .add('faq', 'en-US', '/faq')
+  .add('faq', 'en-us', '/faq')
+  .add('faq', 'en-gb', '/faq')
   .add('faq', 'fr-fr', '/faq')
