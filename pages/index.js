@@ -13,17 +13,22 @@ export default class Index extends React.Component {
   static async getInitialProps({ res, req }) {
     const lang = req.language
 
-    
+    let newLang = 'en-gb'
+    if (req.language === 'fr') {
+      newLang = 'fr-fr'
+    } else {
+      newLang = 'en-gb'
+    }
 
-      const apiData = await Prismic.getApi(apiEndpoint)
-      .then(api => {
-        return api.query( Prismic.Predicates.at('document.type', 'homepage'),
-          { lang: lang}
-        );
-      })
-      .catch(err => console.log(err));
+    const apiData = await Prismic.getApi(apiEndpoint)
+    .then(api => {
+      return api.query( Prismic.Predicates.at('document.type', 'homepage'),
+        { lang: newLang}
+      );
+    })
+    .catch(err => console.log(err));
 
-    return { homepage: apiData.results, lang };
+    return { homepage: apiData.results, newLang };
   }
 
   render() {
@@ -33,6 +38,6 @@ export default class Index extends React.Component {
         <p>{this.props.homepage[0].data.home_page_header[0].text}</p>
         <p>req.language: {this.props.lang}</p>
       </div>
-    ); 
+    );
   }
 }

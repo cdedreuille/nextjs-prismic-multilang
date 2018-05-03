@@ -18,21 +18,20 @@ const requestLanguage = require('express-request-language')
       .then(() => {
         const server = express()
 
-        server.use(requestLanguage({ 
-          languages: ['en-US', 'en-GB', 'fr-fr']
+        server.use(requestLanguage({
+          languages: ['en-US', 'en-GB', 'fr']
         }))
-
 
         server.get('/', function(req, res)  {
           if (req.language ===  'en-US') {
             res.redirect('/en-US');
           } else if(req.language === 'en-GB') {
             res.redirect('/en-GB');
-          } else if(req.language === 'fr-fr' ) {
+          } else if(req.language === 'fr' ) {
             res.redirect('/fr-fr');
-          } 
+          }
 
-            indexHandle(req, res)
+          indexHandle(req, res)
         })
 
         server.get('/faq', function(req, res)  {
@@ -42,7 +41,7 @@ const requestLanguage = require('express-request-language')
             res.redirect('/en-GB' + req.url);
           } else if(req.language === 'fr-fr' ) {
             res.redirect('/fr-fr' + req.url);
-          } 
+          }
 
             indexHandle(req, res)
         })
