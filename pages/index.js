@@ -14,10 +14,18 @@ export default class Index extends React.Component {
     const lang = req.language
 
     let newLang = 'en-gb'
-    if (req.language === 'fr') {
-      newLang = 'fr-fr'
-    } else {
-      newLang = 'en-gb'
+    switch(req.language) {
+      case 'fr':
+        newLang = 'fr-fr'
+        break;
+      case 'en-GB':
+        newLang = 'en-gb'
+        break;
+      case 'en-US':
+        newLang = 'en-us'
+        break;
+      default:
+        newLang = 'en-gb'
     }
 
     const apiData = await Prismic.getApi(apiEndpoint)
@@ -36,7 +44,7 @@ export default class Index extends React.Component {
       <div>
         <p>This info is pulled from Prismic via api</p>
         <p>{this.props.homepage[0].data.home_page_header[0].text}</p>
-        <p>req.language: {this.props.lang}</p>
+        <p>req.language: {this.props.newLang}</p>
       </div>
     );
   }
