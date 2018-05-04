@@ -8,7 +8,6 @@ const app = next({ dev })
 const routes = require('./routes')
 
 const Handle = routes.getRequestHandler(app, ({req, res, route, query}) => {
- const newRoute = '/' + req.language + route.page
  app.render(req, res, route.page, query )
 })
 
